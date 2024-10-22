@@ -1,0 +1,53 @@
+/* PlantDashboard.css */
+
+/* Styles for the dashboard page */
+.dashboard-page {
+  background-color: #ffffff;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+/* Styles for the container of plant information and navigation buttons */
+.plant-info-container {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between; /* Add space between plant info and nav buttons */
+  flex-wrap: wrap; /* Allow flex items to wrap to next line */
+}
+
+/* Styles for the plant information section */
+.plant-info {
+  background-color: rgba(227, 224, 196, 0.5);
+  padding: 20px;
+  border-radius: 5px;
+  width: calc(50% - 10px); /* Adjust width to fit half of the container */
+  box-sizing: border-box; /* Ensure padding is included in width calculation */
+}
+
+/* Styles for the plant image */
+.plant-image {
+  width: 50%;
+  height: auto;
+  margin-bottom: 20px; /* Add spacing between image and text */
+}
+
+/* Styles for navigation buttons */
+.navigation-buttons {
+  margin-top: 20px;
+  width: calc(50% - 10px); /* Adjust width to fit half of the container */
+  box-sizing: border-box; /* Ensure padding is included in width calculation */
+}
+
+.nav-button {
+  display: inline-block;
+  margin: 10px;
+  padding: 10px 20px;
+  background-color: #626a22;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 5px;
+}
+
+.nav-button:hover {
+  background-color: #a17d60;
+}

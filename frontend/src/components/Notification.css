@@ -1,0 +1,50 @@
+/* Notification.css */
+.notification-page {
+    background-image: url(file:///C:/Users/atika/paddyGroww/paddyGroww/frontend/public/background.jpg);
+    background-size: cover; /* This ensures that the background image covers the entire element */
+    background-repeat: no-repeat; /* This prevents the background image from repeating */
+    background-color: #d6d2ad; /* Fallback color in case the image is unavailable */
+    padding: 20px;
+    box-sizing: border-box;
+  }
+  
+  .notification-list {
+    list-style: none;
+    padding: 0;
+    margin-top: 20px;
+  }
+  
+  .notification-item {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 10px;
+  }
+  
+  .notification-item.disease {
+    border-left: 5px solid red;
+  }
+  
+  .notification-item.motion {
+    border-left: 5px solid blue;
+  }
+  
+  .notification-item p {
+    margin: 0;
+  }
+  
+  .notification-item button {
+    margin-top: 10px;
+    padding: 10px 20px;
+    background-color: #626a22;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .notification-item button:hover {
+    background-color: #a17d60;
+  }
+  
