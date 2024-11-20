@@ -5,13 +5,13 @@
   background-color: #ffffff;
   padding: 20px;
   box-sizing: border-box;
+  justify-content: center;
 }
 
 /* Styles for the container of plant information and navigation buttons */
 .plant-info-container {
   display: flex;
   align-items: flex-start;
-  justify-content: space-between; /* Add space between plant info and nav buttons */
   flex-wrap: wrap; /* Allow flex items to wrap to next line */
 }
 
@@ -26,28 +26,39 @@
 
 /* Styles for the plant image */
 .plant-image {
-  width: 50%;
-  height: auto;
-  margin-bottom: 20px; /* Add spacing between image and text */
+  width: 500px;
+  height: 400px;
+  object-fit: cover;
+  margin-bottom: 0; /* Add spacing between image and text */
+  box-sizing: border-box;
+  border-radius: 10px;
+  margin-right: 20px;
+  margin-left: 40px;
 }
 
-/* Styles for navigation buttons */
+/* Navigation Buttons */
 .navigation-buttons {
-  margin-top: 20px;
-  width: calc(50% - 10px); /* Adjust width to fit half of the container */
-  box-sizing: border-box; /* Ensure padding is included in width calculation */
+  width: 50px;
+  max-width: 600px;
+  display: flex;
+  justify-content:right; /* Space between the buttons */
+  margin-top: 10px;
+  margin-left: 1090px;
 }
 
-.nav-button {
+.prev-button, .next-button {
   display: inline-block;
-  margin: 10px;
-  padding: 10px 20px;
+  padding: 15px 30px;
   background-color: #626a22;
   color: #fff;
-  text-decoration: none;
+  text-align: center;
   border-radius: 5px;
+  flex: 1;
+  margin: 0 10px;
+  font-size: 16px;
+  font-weight: bold;
 }
 
-.nav-button:hover {
+.prev-button:hover, .next-button:hover {
   background-color: #a17d60;
 }

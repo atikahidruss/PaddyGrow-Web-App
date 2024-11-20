@@ -12,7 +12,7 @@ function Plants() {
     healthStatus: '',
     diseaseDetected: '',
     stage: '',
-    daysSincePlanted: '',
+    daysSince: '',
     rgbColour: '',
     image: ''
   });
@@ -71,7 +71,7 @@ function Plants() {
           healthStatus: '',
           diseaseDetected: 'none',
           stage: '',
-          daysSincePlanted: '',
+          daysSince: '',
           rgbColour: '',
           image: ''
         });

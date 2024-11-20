@@ -6,30 +6,58 @@ import './PlantDashboard.css';
 function Dashboard() {
   const { id } = useParams();
   const [plantData, setPlantData] = useState(null);
+  const [plantIds, setPlantIds] = useState([]);  // Store all plant IDs
+  const [currentIndex, setCurrentIndex] = useState(null);  // Track current index in the plantIds array
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const plantRef = ref(database, `plants/${id}`);
-    onValue(plantRef, (snapshot) => {
+    const plantsRef = ref(database, 'plants');
+    onValue(plantsRef, (snapshot) => {
       const data = snapshot.val();
       if (data) {
-        setPlantData(data);
+        const ids = Object.keys(data);
+        setPlantIds(ids);
+        const index = ids.indexOf(id);  // Find the index of the current plant
+        setCurrentIndex(index);
       } else {
-        setError('No data found for this plant');
+        setError('No plants found');
       }
     }, (error) => {
-      console.error('Error fetching data:', error);
+      console.error('Error fetching plant IDs:', error);
       setError(error.message);
     });
   }, [id]);
 
+  // Fetch data for the current plant
+  useEffect(() => {
+    if (id) {
+      const plantRef = ref(database, `plants/${id}`);
+      onValue(plantRef, (snapshot) => {
+        const data = snapshot.val();
+        if (data) {
+          setPlantData(data);
+        } else {
+          setError('No data found for this plant');
+        }
+      }, (error) => {
+        console.error('Error fetching plant data:', error);
+        setError(error.message);
+      });
+    }
+  }, [id]);
+  
   if (error) {
     return <p>Error: {error}</p>;
   }
 
-  if (!plantData) {
+  if (!plantData || currentIndex === null) {
     return <p>Loading...</p>;
   }
+
+  // Get next and previous plant IDs
+  const prevPlantId = currentIndex > 0 ? plantIds[currentIndex - 1] : null;
+  const nextPlantId = currentIndex < plantIds.length - 1 ? plantIds[currentIndex + 1] : null;
+
 
   return (
 <div className="dashboard-page">
@@ -50,9 +78,17 @@ function Dashboard() {
     </div>
   </div>
   <div className="navigation-buttons">
-    <Link to={`/dashboard/${parseInt(id) - 1}`} className="nav-button">Previous</Link>
-    <Link to={`/dashboard/${parseInt(id) + 1}`} className="nav-button">Next</Link>
-  </div>
+        {prevPlantId && (
+          <Link to={`/dashboard/${prevPlantId}`} className="prev-button">
+            Previous
+          </Link>
+        )}
+        {nextPlantId && (
+          <Link to={`/dashboard/${nextPlantId}`} className="next-button">
+            Next
+          </Link>
+        )}
+      </div>
 </div>
 
   );
