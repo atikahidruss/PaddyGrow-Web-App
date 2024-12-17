@@ -1,0 +1,118 @@
+/* src/components/Plants.css */
+
+body, html {
+    height: 100%;
+    margin: 0;
+    font-family: 'League Spartan', sans-serif;
+  }
+  
+  .plant-page {
+    background-image: url(file:///C:/Users/atika/paddyGroww/paddyGroww/frontend/public/background.jpg);
+    background-size: cover; /* This ensures that the background image covers the entire element */
+    background-repeat: no-repeat; /* This prevents the background image from repeating */
+    background-color: #d6d2ad; /* Fallback color in case the image is unavailable */
+    padding: 20px;
+    box-sizing: border-box;
+  }
+  
+  .plant-page h1 {
+    color: #626a22; /* Heading color */
+    margin-bottom: 20px;
+    letter-spacing: 2px; /* Add letter spacing */
+  }
+  
+  .add-plant-form {
+    margin-bottom: 20px; /* Add space below the form */
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* Space between form fields */
+  }
+  
+  .add-plant-form input {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+  }
+  
+  .add-plant-form button {
+    padding: 10px;
+    background-color: #626a22;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .add-plant-form button:hover {
+    background-color: #505d13;
+  }
+  
+  .plant-page .plant-list {
+    list-style: none;
+    padding: 0;
+    gap: 20px;
+  }
+  
+  .plant-page .plant-item {
+    background-color: #fff; /* Item background color */
+    padding: 50px 100px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .plant-page .plant-item p {
+    font-size: 18px;
+  }
+  
+  .plant-page .plant-item button {
+    padding: 10px;
+    background-color: #d9534f;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .plant-page .plant-item button:hover {
+    background-color: #c9302c;
+  }
+  
+  /* Style for the dropdown select box */
+.add-plant-form select {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    background-color: #f5f5f5;  /* Light background color */
+    color: #333;                /* Text color */
+    cursor: pointer;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+/* Dropdown arrow styling */
+.add-plant-form select::-ms-expand {
+    display: none; /* Hides default arrow in IE/Edge */
+}
+
+.add-plant-form select:hover, .add-plant-form select:focus {
+    border-color: #626a22; /* Border color when hovered or focused */
+    box-shadow: 0 0 5px rgba(98, 106, 34, 0.5); /* Add shadow for focus */
+}
+
+/* Optional: Customize the dropdown options */
+.add-plant-form option {
+    padding: 10px;
+    background-color: #fff;
+    color: #333;
+}
+
+/* Optional: Disabled option styling */
+.add-plant-form option:disabled {
+    color: #aaa; /* Gray out unavailable options */
+}

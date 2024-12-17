@@ -1,0 +1,74 @@
+@import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap');
+
+body, html {
+  height: 100%;
+  margin: 10;
+  font-family: 'League Spartan', sans-serif; /* Ensure this font is available */
+}
+
+.home {
+  background-color: #d6d2ad; /* Background color */
+  height: 100%; /* Ensure the background covers the entire viewport */
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center align items horizontally */
+  padding: 10; 
+  width: 100%;
+}
+
+.image-container {
+  width: 93%; /* Full width */
+  position: relative; /* Needed for absolute positioning of the text box */
+}
+
+.center-image {
+  width: 100%; /* Full width */
+  height: auto; /* Maintain aspect ratio */
+}
+
+.text-box {
+  position: absolute;
+  bottom: 160px; /* Position from the bottom of the image */
+  left: 50%;
+  transform: translateX(-50%); /* Center horizontally */
+  background-color: #d0c566; /* Semi-transparent background */
+  padding: 15px 20px;
+  text-align: center;
+  font-weight: bold;
+  font-family: Open Sans;
+}
+
+.plant-list {
+  list-style: none;
+  padding: 0;
+  margin-top: 40px;
+  display: flex;
+  flex-direction: row;
+  gap: 20px; /* Space between items */
+  flex-wrap: wrap; /* Allow items to wrap to new rows */
+  justify-content: center; /* Center the items horizontally */
+
+}
+
+.plant-link {
+  text-decoration: none;
+  color: #d0c566;
+  font-size: 18px;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: bold;
+  background-color: #626a22;
+  padding: 50px 70px; /* Adjust padding for a more uniform look */
+  border-radius: 5px;
+  text-align: center; /* Center text */
+  transition: background-color 0.3s;
+  flex: 1 1 200px; /* Allow the boxes to grow and shrink */
+  max-width: 300px; /* Optional: Limit the maximum width of each box */
+  display: block;
+}
+
+
+.plant-link:hover {
+  background-color: #97a33c;
+}
+

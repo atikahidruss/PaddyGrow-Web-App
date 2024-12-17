@@ -1,0 +1,44 @@
+/* Header.css */
+@import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap');
+
+.header {
+    display: flex;
+    align-items: center;
+    padding: 25px; /* Add padding for spacing */
+    justify-content:space-around
+  }
+  
+  .heading {
+    color: #626a22; /* Heading color */
+    margin-right: 35%;
+    font-size: 40px;
+    font-weight: bold;
+    font-family: 'League Spartan', sans-serif;
+  }
+  
+  .nav {
+    display: flex;
+    gap: 20px;  
+  }
+  
+  .nav-link {
+    text-decoration: none !important;
+    color: #ffffff !important;
+    font-weight: bold !important;
+    letter-spacing: 1px !important;
+    font-size: 17px !important;
+    font-family: 'League Spartan', sans-serif !important;
+    margin-left: 0%;
+  }
+  
+  
+  .nav-link.active {
+    color: #a17d60 !important; 
+  }
+  
+  .nav-link:hover {
+    text-decoration: underline !important;
+    color: #626a22 !important;
+  }
+  
