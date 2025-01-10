@@ -1,0 +1,77 @@
+/* Login.css */
+/* Reset styles to remove interference */
+
+  .login-page {
+    padding: 8% 35%;
+    box-sizing: border-box;
+    justify-content: center;
+  }
+
+  .login-container {
+    background-color: #fff; /* White background for the box */
+    padding: 30px 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    max-width: 400px;
+    width: 90%; /* Adjust for smaller screens */
+    text-align: center;
+    position: absolute;
+  }
+  
+  .app-name {
+    font-size: 36px;
+    font-weight: bold;
+    color: #626a22; /* Darker green */
+    margin-bottom: 10px;
+    
+  }
+  
+  .login-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #4caf50;
+  }
+  
+  .login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+  }
+  
+  .login-input {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .login-button {
+    background-color: #4caf50; /* Main green button */
+    color: #fff;
+    border: none;
+    padding: 10px;
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .login-button:hover {
+    background-color: #3b8f3d; /* Darker green on hover */
+  }
+  
+  .register-link {
+    margin-top: 20px;
+    font-size: 14px;
+    color: #626a22; /* Text color */
+  }
+  
+  .register-link-highlight {
+    color: #4caf50;
+    text-decoration: underline;
+    font-weight: bold;
+  }
+  

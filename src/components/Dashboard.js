@@ -4,7 +4,7 @@ import { database, ref, onValue } from '../firebase';
 import './PlantDashboard.css';
 
 function Dashboard({ testMode = false, mockData = null }) {
-  const { id } = useParams() || {}; // UseParams must always be called
+  const { id } = useParams() || {}; 
   const defaultId = testMode ? 'TestPlantId' : id;
 
   const [plantData, setPlantData] = useState(mockData || null);

@@ -42,3 +42,33 @@
     color: #626a22 !important;
   }
   
+  .user-actions {
+    display: flex;
+    align-items: center;
+    gap: 15px; /* Space between email and button */
+  }
+  
+  .user-email {
+    font-size: 15px;
+    font-family: 'Open Sans', sans-serif;
+    color: #ffffff; /* Email text color */
+    font-weight: bold;
+  }
+  
+  .logout-btn {
+    background-color: #ffffff; /* White background */
+    color: #626a22; /* Button text color */
+    border: none;
+    border-radius: 5px;
+    padding: 8px 12px;
+    font-size: 14px;
+    font-family: 'League Spartan', sans-serif;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  
+  .logout-btn:hover {
+    background-color: #a17d60; /* Light brown hover effect */
+    color: #ffffff; /* White text on hover */
+  }
+  

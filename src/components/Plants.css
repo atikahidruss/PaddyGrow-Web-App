@@ -7,7 +7,7 @@ body, html {
   }
   
   .plant-page {
-    background-image: url(file:///C:/Users/atika/paddyGroww/paddyGroww/frontend/public/background.jpg);
+    background-image: url(background.jpg);
     background-size: cover; /* This ensures that the background image covers the entire element */
     background-repeat: no-repeat; /* This prevents the background image from repeating */
     background-color: #d6d2ad; /* Fallback color in case the image is unavailable */
@@ -115,4 +115,36 @@ body, html {
 /* Optional: Disabled option styling */
 .add-plant-form option:disabled {
     color: #aaa; /* Gray out unavailable options */
+}
+
+.sorting-section {
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.sorting-section label {
+  font-size: 16px;
+  color: #626a22;
+}
+
+.sorting-section select {
+  padding: 8px;
+  font-size: 16px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  background-color: #f5f5f5;
+  color: #333;
+  cursor: pointer;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.plant-page .plant-item .plant-image {
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  box-sizing: border-box;
 }

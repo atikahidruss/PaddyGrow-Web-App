@@ -18,16 +18,25 @@ function Plants() {
     image: ''
   });
   const [error, setError] = useState(null);
+  const [sortOption, setSortOption] = useState('none'); // State for sorting option
 
   useEffect(() => {
     const plantsRef = ref(database, 'plants');
     const devicesRef = ref(database, 'device');
-
+  
     const unsubscribePlants = onValue(
       plantsRef,
       (snapshot) => {
         const data = snapshot.val();
-        setPlants(data || []);
+        if (data) {
+          const plantList = Object.entries(data).map(([key, value]) => ({
+            id: key, // Use the Firebase key as the plant's ID
+            ...value,
+          }));
+          setPlants(plantList);
+        } else {
+          setPlants([]);
+        }
       },
       (error) => setError(error.message)
     );
@@ -43,7 +52,7 @@ function Plants() {
       },
       (error) => setError(error.message)
     );
-
+  
     return () => {
       unsubscribePlants();
       unsubscribeDevices();
@@ -91,9 +100,14 @@ function Plants() {
   };
 
   const handleDeletePlant = (plantId, device) => {
+    if (!plantId || !device) {
+      console.error('Invalid plant or device data');
+      return;
+    }
+  
     const plantRef = ref(database, `plants/${plantId}`);
     const deviceRef = ref(database, `device/${device}`);
-
+  
     update(deviceRef, { status: 'Available' })
       .then(() => {
         console.log(`Device ${device} status updated to "Available"`);
@@ -106,7 +120,33 @@ function Plants() {
         console.error('Error deleting plant or updating device status:', error);
         setError(error.message);
       });
+  };  
+
+  // Sorting logic
+  const sortPlants = (plants, option) => {
+    if (option === 'infected-to-healthy') {
+      // Explicitly sort with "Infected" first
+      return [...plants].sort((a, b) => {
+        const healthOrder = { Infected: 1, Good: 2 }; // Define order explicitly
+        return healthOrder[a.healthStatus] - healthOrder[b.healthStatus];
+      });
+    } else if (option === 'healthy-to-infected') {
+      // Explicitly sort with "Healthy" first
+      return [...plants].sort((a, b) => {
+        const healthOrder = { Good: 1, Infected: 2 }; // Define order explicitly
+        return healthOrder[a.healthStatus] - healthOrder[b.healthStatus];
+      });
+    }
+    return plants; // Default: no sorting
   };
+  
+  
+  // Handle sorting option change
+  const handleSortChange = (e) => {
+    setSortOption(e.target.value);
+  };
+
+  const sortedPlants = sortPlants(Object.values(plants || {}).filter(Boolean), sortOption);
 
   if (error) {
     return <p>Error: {error}</p>;
@@ -127,19 +167,26 @@ function Plants() {
         <button type="submit">Add Plant</button>
       </form>
 
+      <div className="sorting-section">
+        <label htmlFor="sort">Sort by:</label>
+        <select id="sort" value={sortOption} onChange={handleSortChange}>
+          <option value="none">None</option>
+          <option value="infected-to-healthy">Infected to Healthy</option>
+          <option value="healthy-to-infected">Healthy to Infected</option>
+        </select>
+      </div>
+
       <ul className="plant-list">
-        {Object.entries(plants).map(([key, plant]) => {
-          if (!plant) return null;
-          return (
-            <li key={key} className="plant-item">
-              <p><strong>Name:</strong> {plant.name || 'N/A'}</p>
-              <p><strong>Date Planted:</strong> {plant.datePlanted || 'N/A'}</p>
-              <p><strong>Plant Type:</strong> {plant.type || 'N/A'}</p>
-              <p><strong>Device:</strong> {plant.device || 'N/A'}</p>
-              <button onClick={() => handleDeletePlant(key, plant.device)}>Delete Plant</button>
-            </li>
-          );
-        })}
+        {sortedPlants.map((plant, index) => (
+          <li key={index} className="plant-item">
+            <img src={plant.image} alt={plant.name} className="plant-image" />
+            <p><strong>Name:</strong> {plant.name || 'N/A'}</p>
+            <p><strong>Date Planted:</strong> {plant.datePlanted || 'N/A'}</p>
+            <p><strong>Health Status:</strong> {plant.healthStatus || 'N/A'}</p>
+            <p><strong>Device:</strong> {plant.device || 'N/A'}</p>
+            <button onClick={() => handleDeletePlant(plant.id, plant.device)}>Delete Plant</button>
+          </li>
+        ))}
       </ul>
     </div>
   );

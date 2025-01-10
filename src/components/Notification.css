@@ -1,6 +1,6 @@
 /* Notification.css */
 .notification-page {
-    background-image: url(file:///C:/Users/atika/paddyGroww/paddyGroww/frontend/public/background.jpg);
+    background-image: url(background.jpg);
     background-size: cover; /* This ensures that the background image covers the entire element */
     background-repeat: no-repeat; /* This prevents the background image from repeating */
     background-color: #d6d2ad; /* Fallback color in case the image is unavailable */
@@ -34,6 +34,7 @@
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    width: 100px;
   }
   
   .notification-item button:hover {
