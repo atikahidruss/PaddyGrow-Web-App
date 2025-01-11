@@ -18,7 +18,13 @@ const SignUp = () => {
       alert('Registration successful!');
       navigate('/login'); // Redirect to login page
     } catch (err) {
-      setError(err.message);
+      if (err.code === 'auth/weak-password') {
+        setError('Password must be at least 6 characters.');
+      } else if (err.code === 'auth/email-already-in-use') {
+        setError('This email is already in use. Please try another one.');
+      } else {
+        setError('An error occurred. Please try again later.');
+      }
     }
   };
 

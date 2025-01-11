@@ -1,16 +1,16 @@
-import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
+// NotificationContext.js
+import React, { createContext, useContext, useState, useEffect } from 'react';
 import axios from 'axios';
-import { database, ref, onValue } from '../firebase';
+import { database, ref, onChildAdded } from '../firebase';
 
 const NotificationContext = createContext();
 
 export const NotificationProvider = ({ children }) => {
   const [notifications, setNotifications] = useState([]);
-  const [processedNotifications, setProcessedNotifications] = useState(new Set()); // Track processed IDs
 
   const sendTelegramMessage = async (message) => {
-    const TELEGRAM_BOT_TOKEN = 'YOUR_TELEGRAM_BOT_TOKEN';
-    const CHAT_ID = 'YOUR_CHAT_ID';
+    const TELEGRAM_BOT_TOKEN = '7124703258:AAEhL5M4jyjvlAGx5hPqQQroOT_IUflWanc';
+    const CHAT_ID = '-1002393162020';
 
     try {
       const response = await axios.post(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
@@ -23,42 +23,28 @@ export const NotificationProvider = ({ children }) => {
     }
   };
 
-  const addNotification = useCallback(
-    (id, message, firebaseTimestamp) => {
-      const timestamp = firebaseTimestamp || new Date().toLocaleString();
-      const formattedMessage = `${message}\nTimestamp: ${timestamp}`;
-
-      setNotifications((prev) => {
-        if (prev.some((notif) => notif.id === id)) {
-          console.log(`Duplicate notification detected, not adding: ${formattedMessage}`);
-          return prev; // Skip duplicate notifications
-        }
-        return [...prev, { id, message: formattedMessage }];
-      });
-
-      sendTelegramMessage(formattedMessage); // Send message to Telegram
-    },
-    []
-  );
-
+  // Monitor new notifications in Firebase
   useEffect(() => {
     const notificationsRef = ref(database, 'notifications');
-
-    const unsubscribe = onValue(notificationsRef, (snapshot) => {
-      const data = snapshot.val();
-      if (data) {
-        Object.entries(data).forEach(([id, notification]) => {
-          if (!processedNotifications.has(id)) {
-            // If the notification is not yet processed, send it
-            addNotification(id, notification.message, notification.timestamp);
-            setProcessedNotifications((prev) => new Set(prev).add(id)); // Mark as processed
-          }
-        });
+    const unsubscribe = onChildAdded(notificationsRef, (snapshot) => {
+      const newNotification = snapshot.val();
+      if (newNotification) {
+        const formattedMessage = `${newNotification.message}\nTimestamp: ${newNotification.timestamp}`;
+        console.log('New notification received:', formattedMessage);
+        sendTelegramMessage(formattedMessage); // Send to Telegram
+        setNotifications((prev) => [...prev, formattedMessage]); // Update local notifications state
       }
     });
 
     return () => unsubscribe();
-  }, [addNotification, processedNotifications]);
+  }, []);
+
+  const addNotification = (message) => {
+    const timestamp = new Date().toLocaleString();
+    const formattedMessage = `${message}\nTimestamp: ${timestamp}`;
+    setNotifications((prev) => [...prev, formattedMessage]);
+    sendTelegramMessage(formattedMessage); // Send the formatted message to Telegram
+  };
 
   return (
     <NotificationContext.Provider value={{ notifications, addNotification }}>
@@ -67,6 +53,7 @@ export const NotificationProvider = ({ children }) => {
   );
 };
 
+// Custom hook to use Notification context
 export const useNotification = () => {
   return useContext(NotificationContext);
 };

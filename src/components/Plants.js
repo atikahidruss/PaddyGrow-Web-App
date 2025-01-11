@@ -28,15 +28,10 @@ function Plants() {
       plantsRef,
       (snapshot) => {
         const data = snapshot.val();
-        if (data) {
-          const plantList = Object.entries(data).map(([key, value]) => ({
-            id: key, // Use the Firebase key as the plant's ID
-            ...value,
-          }));
-          setPlants(plantList);
-        } else {
-          setPlants([]);
-        }
+        const plantArray = data
+          ? Object.keys(data).map((key) => ({ id: key, ...data[key] }))
+          : [];
+        setPlants(plantArray);
       },
       (error) => setError(error.message)
     );
@@ -52,7 +47,7 @@ function Plants() {
       },
       (error) => setError(error.message)
     );
-  
+
     return () => {
       unsubscribePlants();
       unsubscribeDevices();
@@ -66,20 +61,28 @@ function Plants() {
 
   const handleAddPlant = (e) => {
     e.preventDefault();
-    const existingIds = Object.keys(plants).map(Number);
-    const maxId = existingIds.length > 0 ? Math.max(...existingIds) : 0;
-    const nextId = maxId + 1;
-
+  
+    // Calculate the next ID based on the current plants
+    const nextId = plants.length > 0 
+      ? Math.max(...plants.map((plant) => parseInt(plant.id))) + 1 
+      : 1;
+  
+    // Reference for the new plant
     const newPlantRef = ref(database, `plants/${nextId}`);
     const deviceRef = ref(database, `device/${newPlant.device}`);
 
-    set(newPlantRef, newPlant)
+    // Ensure the date is stored in YYYY-MM-DD format
+    const formattedDate = newPlant.datePlanted.split('-').reverse().join('-');
+  
+    // Add the new plant to the database and update the device status
+    set(newPlantRef, { ...newPlant, id: nextId, datePlanted: formattedDate}) // Store the ID in the plant data as well
       .then(() => {
-        console.log('Plant added successfully');
+        console.log(`Plant added successfully with ID: ${nextId}`);
         return update(deviceRef, { status: 'Not available' });
       })
       .then(() => {
         console.log('Device status updated to "Not available"');
+        // Reset the form state
         setNewPlant({
           name: '',
           datePlanted: '',
@@ -98,13 +101,8 @@ function Plants() {
         setError(error.message);
       });
   };
-
-  const handleDeletePlant = (plantId, device) => {
-    if (!plantId || !device) {
-      console.error('Invalid plant or device data');
-      return;
-    }
   
+  const handleDeletePlant = (plantId, device) => {
     const plantRef = ref(database, `plants/${plantId}`);
     const deviceRef = ref(database, `device/${device}`);
   

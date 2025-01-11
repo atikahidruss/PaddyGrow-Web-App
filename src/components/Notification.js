@@ -16,6 +16,7 @@ function Notification() {
       } else {
         setNotifications([]);
       }
+      
     });
 
     return () => {
