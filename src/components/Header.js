@@ -1,6 +1,6 @@
 // Header.js
 import React from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { auth } from '../firebase'; // Import Firebase auth
 import { signOut } from 'firebase/auth'; // For logging out
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -8,7 +8,6 @@ import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import './Header.css';
 
 function Header() {
-  const location = useLocation(); // Get current route
   const navigate = useNavigate(); // Navigate after logout
 
   const handleLogout = async () => {
