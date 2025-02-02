@@ -1,12 +1,5 @@
 import { useEffect, useRef } from 'react';
-import {
-  database,
-  ref,
-  onValue,
-  remove,
-  get,
-  set,
-} from '../firebase';
+import { database, ref, onValue, remove, get, set, } from '../firebase';
 
 function HealthMonitor() {
   const previousHealthStatuses = useRef({}); // Tracks previous health statuses

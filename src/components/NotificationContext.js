@@ -1,36 +1,19 @@
-  import React, {
-    createContext,
-    useContext,
-    useState,
-    useEffect,
-    useCallback,
-    useRef,
-  } from 'react';
+  import React, { createContext, useContext, useState, useEffect, useCallback, useRef, } from 'react';
   import axios from 'axios';
-  import {
-    database,
-    ref,
-    onChildAdded,
-    onChildChanged,
-    update,
-  } from '../firebase';
+  import { database, ref, onChildAdded, onChildChanged, update, } from '../firebase';
   
   const NotificationContext = createContext();
-  
   export const NotificationProvider = ({ children }) => {
     const [notifications, setNotifications] = useState([]);
     const sentMessages = useRef(new Set()); // For single-session duplicate checks
-  
-    // Your actual bot token & chat ID
     const TELEGRAM_BOT_TOKEN = '7124703258:AAEhL5M4jyjvlAGx5hPqQQroOT_IUflWanc';
     const CHAT_ID = '-1002393162020';
-  
+
     // Sends a message to Telegram, skipping duplicates in the current session
     const sendTelegramMessage = async (message) => {
       if (sentMessages.current.has(message)) {
         console.log(`Duplicate message in this session, not sending: ${message}`);
-        return;
-      }
+        return; }
       try {
         const response = await axios.post(
           `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`,
@@ -59,7 +42,7 @@
         }
         return [...prev, formattedMessage];
       });
-  
+
       // Send Telegram message (if not already in this session’s sent set)
       sendTelegramMessage(formattedMessage);
     }, []);
