@@ -28,7 +28,7 @@ PaddyGrow is a web-based plant monitoring application that enables users to trac
 1. Clone the repository:
    ```bash
    git clone https://github.com/atikahidruss/PaddyGrow-Web-App.git
-   cd PaddyGrow
+   cd PaddyGrow-Web-App
    ```
 2. Install frontend dependencies:
    ```bash
@@ -64,9 +64,6 @@ Contributions are welcome! To contribute:
 - Create a new branch.
 - Make your changes and commit them.
 - Submit a pull request.
-
-## License
-This project is licensed under the MIT License.
 
 ## Contact
 For any inquiries or support, please contact [Atikah](mailto:atikahidrus72@gmail.com).
